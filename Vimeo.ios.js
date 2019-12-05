@@ -31,6 +31,14 @@ window.postMessage = patchedPostMessage;
 })();
 `;
 
+const styles = StyleSheet.create({
+  webview: {
+    // Accounts for player border
+    marginTop: -8,
+    marginLeft: -10
+  }
+});
+
 export default class Vimeo extends React.Component {
   static propTypes = {
     videoId: PropTypes.string.isRequired,
@@ -100,21 +108,24 @@ export default class Vimeo extends React.Component {
   };
 
   render() {
+    const { height, style, videoId, ...props } = this.props;
+
     return (
       <WebView
         ref="webviewBridge"
-        style={{
-          // Accounts for player border
-          marginTop: -8,
-          marginLeft: -10,
-          height: this.props.height
-        }}
+        style={[
+          styles.webview,
+          {
+            height: this.props.height
+          },
+          style
+        ]}
         injectedJavaScript={injectedCode}
-        source={{ uri: getVimeoPageURL(this.props.videoId) }}
-        scalesPageToFit={this.props.scalesPageToFit}
+        source={{ uri: getVimeoPageURL(videoId) }}
         scrollEnabled={false}
         onMessage={this.onBridgeMessage}
         onError={error => console.error(error)}
+        {...props}
       />
     );
   }
