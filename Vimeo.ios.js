@@ -9,8 +9,10 @@ import WebView from 'react-native-webview';
 
 import reactNativeVimeo from './package.json';
 
+const [major, minor] = reactNativeVimeo.version.split('.');
+
 function getVimeoPageURL(videoId) {
-  return `https://mypthub.github.io/react-native-vimeo/v${reactNativeVimeo.version}.html?vid=${videoId}`;
+  return `https://mypthub.github.io/react-native-vimeo/v${major}.${minor}.html?vid=${videoId}`;
 }
 
 // NOTE: Injecting code here due to react-native webview issues when overriding
