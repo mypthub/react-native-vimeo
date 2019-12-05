@@ -10,10 +10,7 @@ import WebView from 'react-native-webview';
 import reactNativeVimeo from './package.json';
 
 function getVimeoPageURL(videoId) {
-  return (
-    `https://mypthub.github.io/react-native-vimeo/${reactNativeVimeo.version}.html?vid=` +
-    videoId
-  );
+  return `https://mypthub.github.io/react-native-vimeo/${reactNativeVimeo.version}.html?vid=${videoId}`;
 }
 
 // NOTE: Injecting code here due to react-native webview issues when overriding
@@ -57,7 +54,7 @@ export default class Vimeo extends React.Component {
     this.registerHandlers();
   }
 
-  componentWillReceiveProps() {
+  componentDidUpdate() {
     this.registerHandlers();
   }
 
