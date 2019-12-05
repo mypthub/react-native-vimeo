@@ -1,5 +1,5 @@
 {
-  "name": "react-native-vimeo",
+  "name": "@mypthub/react-native-vimeo",
   "version": "0.3.0",
   "description": "A <Vimeo/> component for React Native.",
   "main": "Vimeo.ios.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Myagi/react-native-vimeo.git"
+    "url": "git@github.com:mypthub/react-native-vimeo.git"
   },
   "keywords": [
     "alex-mcleod",
@@ -17,11 +17,14 @@
     "react-native"
   ],
   "author": "Alex McLeod",
+  "contributors": [
+    "Gustavo Parreira"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Myagi/react-native-vimeo/issues"
+    "url": "https://github.com/mypthub/react-native-vimeo/issues"
   },
-  "homepage": "https://github.com/Myagi/react-native-vimeo#readme",
+  "homepage": "https://github.com/mypthub/react-native-vimeo",
   "dependencies": {
     "prop-types": "^15.5.10"
   }
