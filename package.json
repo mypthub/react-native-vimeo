@@ -27,5 +27,8 @@
   "homepage": "https://github.com/mypthub/react-native-vimeo",
   "dependencies": {
     "prop-types": "^15.5.10"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
