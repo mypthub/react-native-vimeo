@@ -4,7 +4,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, WebView } from 'react-native';
+import { StyleSheet } from 'react-native';
+import WebView from 'react-native-webview';
 
 import package from './package.json';
 
