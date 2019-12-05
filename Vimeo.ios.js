@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import { StyleSheet } from 'react-native';
 import WebView from 'react-native-webview';
 
-import package from './package.json';
+import reactNativeVimeo from './package.json';
 
 function getVimeoPageURL(videoId) {
   return (
-    `https://mypthub.github.io/react-native-vimeo/${package.version}.html?vid=` +
+    `https://mypthub.github.io/react-native-vimeo/${reactNativeVimeo.version}.html?vid=` +
     videoId
   );
 }
