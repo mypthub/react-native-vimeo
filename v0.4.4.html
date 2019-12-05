@@ -1,0 +1,74 @@
+<head>
+  <title></title>
+  <script src="https://f.vimeocdn.com/js/froogaloop2.min.js"></script>
+</head>
+<body style="height: 100%; width: 100%;"></body>
+<script>
+  var PLAYER_ID = 'player';
+  function getParameterByName(name, url) {
+    // From http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+    if (!url) url = window.location.href;
+    url = url.toLowerCase(); // This is just to avoid case sensitiveness
+    name = name.replace(/[\[\]]/g, '\\$&').toLowerCase(); // This is just to avoid case sensitiveness for query parameter name
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+
+  function webViewBridge() {
+    var vid = getParameterByName('vid');
+    if (!vid) {
+      window.postMessage('No `vid` parameter found, not loading Vimeo iframe');
+      return;
+    }
+    // Generate iframe based on `vid` parameter
+    var iframe;
+    iframe = document.createElement('iframe');
+    iframe.src =
+      'https://player.vimeo.com/video/' + vid + '?api=1&player_id=' + PLAYER_ID;
+    iframe.width = '100%';
+    iframe.height = '98%';
+    iframe.frameBorder = '0';
+    iframe.webkitallowfullscreen = true;
+    iframe.allowfullscreen = true;
+    iframe.id = PLAYER_ID;
+    document.body.appendChild(iframe);
+    var player = $f(iframe);
+    // Bind player events to `sendEvent` function so that they are passed
+    // through the bridge.
+    player.addEvent('ready', function() {
+      // Ideally we could just iterate over event names and add the sendEvent
+      // handler to each of them, however that doesn't work because sendEvent
+      // ends up just being called with whatever was the last event in the array.
+      player.addEvent('play', function(data) {
+        sendEvent('play', data);
+      });
+      player.addEvent('playProgress', function(data) {
+        sendEvent('playProgress', data);
+      });
+      player.addEvent('pause', function(data) {
+        sendEvent('pause', data);
+      });
+      player.addEvent('finish', function(data) {
+        sendEvent('finish', data);
+      });
+      sendEvent('ready');
+    });
+
+    player.api(message, function(data) {
+      sendEvent(message, data);
+    });
+    function sendEvent(evt, data) {
+      // Passes events through the bridge
+      var payload = {
+        name: evt,
+        data: data
+      };
+      window.postMessage(JSON.stringify(payload));
+    }
+  }
+
+  webViewBridge();
+</script>
